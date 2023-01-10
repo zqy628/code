@@ -1,4 +1,4 @@
-package com.code.day;
+package com.code.dp;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
