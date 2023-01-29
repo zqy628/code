@@ -67,7 +67,41 @@ class WordDictionary {
     }
     
     public boolean search(String word) {
+        // 传统方法时间复杂度会很高
+        // TrieNode cur = root;
+        // for (char c : word.toCharArray()) {
+        //     int i = c - 'a';
+        //     if (cur.children[i] == null) {
+        //         return false;
+        //     }
+        //     cur = cur.children[i];
+        // }
+        // return cur.isEnd;
+        return match(word, root, 0);
+    }
 
+    /**
+     * 传统递归match写法
+     * @param word
+     * @param trieNode
+     * @param i
+     * @return
+     */
+    private boolean match(String word, TrieNode trieNode, int i) {
+        if (i == word.length()) {
+            return trieNode.isEnd;
+        }
+        if (word.charAt(i) == '.') {
+            for (TrieNode child : trieNode.children) {
+                if (child!=null && match(word, child, i+1)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            int c = word.charAt(i) - 'a';
+            return trieNode.children[c] != null && match(word, trieNode.children[c], i+1);
+        }
     }
 
     class TrieNode {
